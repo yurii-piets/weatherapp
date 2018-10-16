@@ -10,6 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var cityName: UILabel!
+    
+    var cityNameString: String?;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,13 +28,35 @@ class ViewController: UIViewController {
                 print("Unexpected \(err)");
                 return;
             }
+            //let json = String(data: d!, encoding: String.Encoding.utf8);
             
-            let json = String(data: d!, encoding: String.Encoding.utf8);
-            print(json);
+            do {
+                guard let json =
+                    try
+                        JSONSerialization.jsonObject(with: d!, options: []) as? [String: Any]
+                    else {
+                        print("Error");
+                        return
+                };
+                
+                self.cityNameString = json["title"] as? String;
+                
+                DispatchQueue.main.async {
+                    self.updateView()
+                }
+            }
+            catch {
+                print("Error");
+                return
+            }
         };
         
         
         dataTask.resume();
+    }
+    
+    func updateView(){
+        self.cityName.text = self.cityNameString;
     }
 
 
