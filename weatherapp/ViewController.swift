@@ -12,7 +12,13 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var cityName: UILabel!
     
+    @IBOutlet weak var minTempLabel: UILabel!
+    
+    @IBOutlet weak var maxTempLabel: UILabel!
+    
     var cityNameString: String?;
+    var minTemp: String?;
+    var maxTemp: String?;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +46,11 @@ class ViewController: UIViewController {
                 };
                 
                 self.cityNameString = json["title"] as? String;
+//                self.minTemp = json["min_temp"] as? String;
+//                self.maxTemp = json["max_temp"] as? String;
                 
+                print(json["consolidated_weather"]);
+                print(json);
                 DispatchQueue.main.async {
                     self.updateView()
                 }
@@ -57,6 +67,8 @@ class ViewController: UIViewController {
     
     func updateView(){
         self.cityName.text = self.cityNameString;
+        self.minTempLabel.text = self.minTemp;
+       self.maxTempLabel.text = self.maxTemp;
     }
 
 
