@@ -16,9 +16,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var maxTempLabel: UILabel!
     
-    var cityNameString: String?;
-    var minTemp: String?;
-    var maxTemp: String?;
+    var weather: Weather!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,30 +32,16 @@ class ViewController: UIViewController {
                 print("Unexpected \(err)");
                 return;
             }
-            //let json = String(data: d!, encoding: String.Encoding.utf8);
             
-            do {
-                guard let json =
-                    try
-                        JSONSerialization.jsonObject(with: d!, options: []) as? [String: Any]
-                    else {
-                        print("Error");
-                        return
-                };
-                
-                self.cityNameString = json["title"] as? String;
-//                self.minTemp = json["min_temp"] as? String;
-//                self.maxTemp = json["max_temp"] as? String;
-                
-                print(json["consolidated_weather"]);
-                print(json);
-                DispatchQueue.main.async {
-                    self.updateView()
-                }
-            }
-            catch {
-                print("Error");
-                return
+            let decoder = JSONDecoder();
+            
+            
+            self.weather = try? decoder.decode(Weather.self, from: d!);
+            
+            print(self.weather);
+            
+            DispatchQueue.main.async {
+                self.updateView()
             }
         };
         
@@ -66,9 +50,9 @@ class ViewController: UIViewController {
     }
     
     func updateView(){
-        self.cityName.text = self.cityNameString;
-        self.minTempLabel.text = self.minTemp;
-       self.maxTempLabel.text = self.maxTemp;
+        self.cityName.text = self.weather.title;
+//        self.minTempLabel.text = self.weather.minTemp;
+//       self.maxTempLabel.text = self.weather.maxTemp;
     }
 
 
