@@ -26,13 +26,15 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var weatherIcon: UIImageView!
     
+    @IBOutlet weak var dateLabel: UILabel!
+    
     var weather: Weather!
+    
+    var currentWeatherId:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadWeather()
-//        loadIcon()
-        
     }
     
     func loadWeather(){
@@ -52,7 +54,7 @@ class ViewController: UIViewController {
             
             self.weather = try? decoder.decode(Weather.self, from: d!);
             
-            self.loadIcon(abbr: self.weather.weatherElements![0].weatherStateAbbr!)
+            self.loadIcon()
             
             DispatchQueue.main.async {
                 self.updateView()
@@ -60,7 +62,8 @@ class ViewController: UIViewController {
         }.resume();
     }
     
-    func loadIcon(abbr: String){
+    func loadIcon(){
+        let abbr = self.weather.weatherElements![self.currentWeatherId].weatherStateAbbr!;
         let iconUrl = "https://www.metaweather.com/static/img/weather/png/64/" + abbr + ".png"
         
         let url = URL(string: iconUrl);
@@ -81,18 +84,14 @@ class ViewController: UIViewController {
     func updateView(){
         self.cityName.text = self.weather.title;
         
-        self.minTempLabel.text = String(format:"%.1f ºC", self.weather.weatherElements![0].minTemp!)
-        self.maxTempLabel.text = String(format:"%.1f ºC", self.weather.weatherElements![0].maxTemp!)
-        self.windSpeedLabel.text = String(format:"%.0f km/h", self.weather.weatherElements![0].windSpeed!)
-        self.windDirLabel.text = self.weather.weatherElements![0].windDirectionCompass!
-        self.humidityLabel.text = "\(self.weather.weatherElements![0].humidity!)"
-        self.airPreassureLabel.text = String(format:"%.1f", self.weather.weatherElements![0].airPressure!)
+        self.dateLabel.text = self.weather.weatherElements![self.currentWeatherId].applicableDate;
+        
+        self.minTempLabel.text = String(format:"%.1f ºC", self.weather.weatherElements![self.currentWeatherId].minTemp!)
+        self.maxTempLabel.text = String(format:"%.1f ºC", self.weather.weatherElements![self.currentWeatherId].maxTemp!)
+        self.windSpeedLabel.text = String(format:"%.0f km/h", self.weather.weatherElements![self.currentWeatherId].windSpeed!)
+        self.windDirLabel.text = self.weather.weatherElements![self.currentWeatherId].windDirectionCompass!
+        self.humidityLabel.text = "\(self.weather.weatherElements![self.currentWeatherId].humidity!)"
+        self.airPreassureLabel.text = String(format:"%.1f", self.weather.weatherElements![self.currentWeatherId].airPressure!)
         
     }
-    
-    func updateIcon(){
-        
-    }
-
-
 }

@@ -116,9 +116,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L81-Id-kTM">
-                                <rect key="frame" x="258" y="63" width="107" height="103"/>
+                                <rect key="frame" x="273" y="86" width="86" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dtu-t3-chv">
+                                <rect key="frame" x="32" y="117" width="188" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -126,6 +133,7 @@
                     <connections>
                         <outlet property="airPreassureLabel" destination="ZVf-a3-WQm" id="2Tl-r9-fiZ"/>
                         <outlet property="cityName" destination="NQo-hI-bnr" id="q3f-kV-wVh"/>
+                        <outlet property="dateLabel" destination="Dtu-t3-chv" id="oPr-pf-Vc5"/>
                         <outlet property="humidityLabel" destination="sma-ro-C3O" id="krX-zK-bk0"/>
                         <outlet property="maxTempLabel" destination="eIS-Em-JCo" id="z7c-M3-Yrr"/>
                         <outlet property="minTempLabel" destination="eXe-0E-57l" id="IBE-PT-BDc"/>
