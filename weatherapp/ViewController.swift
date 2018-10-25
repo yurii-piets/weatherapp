@@ -24,11 +24,18 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var airPreassureLabel: UILabel!
     
+    @IBOutlet weak var weatherIcon: UIImageView!
+    
     var weather: Weather!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadWeather()
+//        loadIcon()
         
+    }
+    
+    func loadWeather(){
         let locationId = "523920";
         let weatherUrl = "https://www.metaweather.com/api/location/" + locationId;
         
@@ -45,10 +52,28 @@ class ViewController: UIViewController {
             
             self.weather = try? decoder.decode(Weather.self, from: d!);
             
-            //print(self.weather);
+            self.loadIcon(abbr: self.weather.weatherElements![0].weatherStateAbbr!)
             
             DispatchQueue.main.async {
                 self.updateView()
+            }
+        }.resume();
+    }
+    
+    func loadIcon(abbr: String){
+        let iconUrl = "https://www.metaweather.com/static/img/weather/png/64/" + abbr + ".png"
+        
+        let url = URL(string: iconUrl);
+        let request: URLRequest = URLRequest(url: url!);
+        URLSession.shared.dataTask(with: request) {(d, resp, err) in
+            
+            if let err = err {
+                print("Unexpected \(err)");
+                return;
+            }
+            
+            DispatchQueue.main.async {
+                self.weatherIcon.image = UIImage(data: d!)
             }
         }.resume();
     }
@@ -62,6 +87,10 @@ class ViewController: UIViewController {
         self.windDirLabel.text = self.weather.weatherElements![0].windDirectionCompass!
         self.humidityLabel.text = "\(self.weather.weatherElements![0].humidity!)"
         self.airPreassureLabel.text = String(format:"%.1f", self.weather.weatherElements![0].airPressure!)
+        
+    }
+    
+    func updateIcon(){
         
     }
 
