@@ -16,6 +16,14 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var maxTempLabel: UILabel!
     
+    @IBOutlet weak var windSpeedLabel: UILabel!
+    
+    @IBOutlet weak var windDirLabel: UILabel!
+    
+    @IBOutlet weak var humidityLabel: UILabel!
+    
+    @IBOutlet weak var airPreassureLabel: UILabel!
+    
     var weather: Weather!
     
     override func viewDidLoad() {
@@ -48,8 +56,13 @@ class ViewController: UIViewController {
     func updateView(){
         self.cityName.text = self.weather.title;
         
-        self.minTempLabel.text = String(format:"%.1f", self.weather.weatherElements![0].minTemp!)
-        self.maxTempLabel.text = String(format:"%.1f", self.weather.weatherElements![0].maxTemp!)
+        self.minTempLabel.text = String(format:"%.1f ºC", self.weather.weatherElements![0].minTemp!)
+        self.maxTempLabel.text = String(format:"%.1f ºC", self.weather.weatherElements![0].maxTemp!)
+        self.windSpeedLabel.text = String(format:"%.0f km/h", self.weather.weatherElements![0].windSpeed!)
+        self.windDirLabel.text = self.weather.weatherElements![0].windDirectionCompass!
+        self.humidityLabel.text = "\(self.weather.weatherElements![0].humidity!)"
+        self.airPreassureLabel.text = String(format:"%.1f", self.weather.weatherElements![0].airPressure!)
+        
     }
 
 
