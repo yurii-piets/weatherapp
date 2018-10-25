@@ -7,11 +7,11 @@ import Foundation
 
 struct Weather: Decodable {
     let title: String?
-    let weatherElement: [WeatherElement]?
+    let weatherElements: [WeatherElement]?
     
     enum CodingKeys: String, CodingKey {
         case title = "title"
-        case weatherElement = "consolidated_weather"
+        case weatherElements = "consolidated_weather"
     }
 }
 

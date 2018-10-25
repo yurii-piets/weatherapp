@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         
         let url = URL(string: weatherUrl);
         let request: URLRequest = URLRequest(url: url!);
-        let dataTask = URLSession.shared.dataTask(with: request) {(d, resp, err) in
+        URLSession.shared.dataTask(with: request) {(d, resp, err) in
             
             if let err = err {
                 print("Unexpected \(err)");
@@ -35,24 +35,21 @@ class ViewController: UIViewController {
             
             let decoder = JSONDecoder();
             
-            
             self.weather = try? decoder.decode(Weather.self, from: d!);
             
-            print(self.weather);
+            //print(self.weather);
             
             DispatchQueue.main.async {
                 self.updateView()
             }
-        };
-        
-        
-        dataTask.resume();
+        }.resume();
     }
     
     func updateView(){
         self.cityName.text = self.weather.title;
-//        self.minTempLabel.text = self.weather.minTemp;
-//       self.maxTempLabel.text = self.weather.maxTemp;
+        
+        self.minTempLabel.text = String(format:"%.1f", self.weather.weatherElements![0].minTemp!)
+        self.maxTempLabel.text = String(format:"%.1f", self.weather.weatherElements![0].maxTemp!)
     }
 
 
