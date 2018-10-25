@@ -28,13 +28,24 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var dateLabel: UILabel!
     
+    @IBOutlet weak var prevBtn: UIButton!
+    
+    @IBOutlet weak var nextBtn: UIButton!
+    
     var weather: Weather!
     
     var currentWeatherId:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadWeather()
+        self.initTargets()
+        self.prevBtn.isEnabled = false
+        self.loadWeather()
+    }
+    
+    func initTargets(){
+        self.prevBtn.addTarget(self, action: #selector(prevBtnClicked), for: UIControl.Event.touchUpInside)
+        self.nextBtn.addTarget(self, action: #selector(nextBtnClicked), for: UIControl.Event.touchUpInside)
     }
     
     func loadWeather(){
@@ -50,9 +61,7 @@ class ViewController: UIViewController {
                 return;
             }
             
-            let decoder = JSONDecoder();
-            
-            self.weather = try? decoder.decode(Weather.self, from: d!);
+            self.weather = try? JSONDecoder().decode(Weather.self, from: d!);
             
             self.loadIcon()
             
@@ -83,9 +92,7 @@ class ViewController: UIViewController {
     
     func updateView(){
         self.cityName.text = self.weather.title;
-        
         self.dateLabel.text = self.weather.weatherElements![self.currentWeatherId].applicableDate;
-        
         self.minTempLabel.text = String(format:"%.1f ºC", self.weather.weatherElements![self.currentWeatherId].minTemp!)
         self.maxTempLabel.text = String(format:"%.1f ºC", self.weather.weatherElements![self.currentWeatherId].maxTemp!)
         self.windSpeedLabel.text = String(format:"%.0f km/h", self.weather.weatherElements![self.currentWeatherId].windSpeed!)
@@ -93,5 +100,25 @@ class ViewController: UIViewController {
         self.humidityLabel.text = "\(self.weather.weatherElements![self.currentWeatherId].humidity!)"
         self.airPreassureLabel.text = String(format:"%.1f", self.weather.weatherElements![self.currentWeatherId].airPressure!)
         
+    }
+    
+    @objc func prevBtnClicked(sender: UIButton!){
+        self.currentWeatherId -= 1
+        self.updateView()
+        self.loadIcon()
+        if(self.currentWeatherId <= 0) {
+            self.prevBtn.isEnabled = false
+        }
+        self.nextBtn.isEnabled = true
+    }
+    
+    @objc func nextBtnClicked(sender: UIButton!){
+        self.currentWeatherId += 1
+        self.updateView()
+        self.loadIcon()
+        if(self.currentWeatherId >= self.weather.weatherElements!.count - 1) {
+            self.nextBtn.isEnabled = false
+        }
+        self.prevBtn.isEnabled = true
     }
 }

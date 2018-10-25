@@ -126,6 +126,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ED8-Ha-moX">
+                                <rect key="frame" x="44" y="386" width="126" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Previous"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUH-lI-lnS">
+                                <rect key="frame" x="280" y="386" width="32" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Next"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -137,6 +147,8 @@
                         <outlet property="humidityLabel" destination="sma-ro-C3O" id="krX-zK-bk0"/>
                         <outlet property="maxTempLabel" destination="eIS-Em-JCo" id="z7c-M3-Yrr"/>
                         <outlet property="minTempLabel" destination="eXe-0E-57l" id="IBE-PT-BDc"/>
+                        <outlet property="nextBtn" destination="LUH-lI-lnS" id="OGh-Gv-1hn"/>
+                        <outlet property="prevBtn" destination="ED8-Ha-moX" id="ZVa-5F-zhq"/>
                         <outlet property="weatherIcon" destination="L81-Id-kTM" id="Tr2-6y-oQB"/>
                         <outlet property="windDirLabel" destination="TLF-hn-cg0" id="EXL-n7-QuS"/>
                         <outlet property="windSpeedLabel" destination="sMW-lT-Gf5" id="fPX-4y-VVR"/>
