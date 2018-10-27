@@ -36,11 +36,13 @@ class ViewController: UIViewController {
     
     var currentWeatherId:Int = 0
     
+    let weatherUrl = "https://www.metaweather.com/api/location/" + "523920";
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initTargets()
         self.prevBtn.isEnabled = false
         self.loadWeather()
+        self.initTargets()
     }
     
     func initTargets(){
@@ -49,10 +51,7 @@ class ViewController: UIViewController {
     }
     
     func loadWeather(){
-        let locationId = "523920";
-        let weatherUrl = "https://www.metaweather.com/api/location/" + locationId;
-        
-        let url = URL(string: weatherUrl);
+        let url = URL(string: self.weatherUrl);
         let request: URLRequest = URLRequest(url: url!);
         URLSession.shared.dataTask(with: request) {(d, resp, err) in
             
@@ -97,8 +96,8 @@ class ViewController: UIViewController {
         self.maxTempLabel.text = String(format:"%.1f ºC", self.weather.weatherElements![self.currentWeatherId].maxTemp!)
         self.windSpeedLabel.text = String(format:"%.0f km/h", self.weather.weatherElements![self.currentWeatherId].windSpeed!)
         self.windDirLabel.text = self.weather.weatherElements![self.currentWeatherId].windDirectionCompass!
-        self.humidityLabel.text = "\(self.weather.weatherElements![self.currentWeatherId].humidity!)"
-        self.airPreassureLabel.text = String(format:"%.1f", self.weather.weatherElements![self.currentWeatherId].airPressure!)
+        self.humidityLabel.text = "\(self.weather.weatherElements![self.currentWeatherId].humidity!)" + "%"
+        self.airPreassureLabel.text = String(format:"%.0f", self.weather.weatherElements![self.currentWeatherId].airPressure!) + "mbar"
         
     }
     
